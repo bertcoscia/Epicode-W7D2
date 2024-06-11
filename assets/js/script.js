@@ -2,28 +2,25 @@ const form = document.querySelector("form");
 const nameForm = document.getElementById("name");
 const saveBtn = document.getElementById("saveBtn");
 const deleteBtn = document.getElementById("deleteBtn");
-const nameContainer = document.getElementById("nameContainer");
-
-class Names {
-  constructor(name) {
-    this.name = name;
-  }
-}
-
-const nameSaved = [];
+const title = document.querySelector("h1");
 
 const createName = (name) => {
-  const nameObj = new Names(name);
-  const h2Name = document.createElement("h2");
-  h2Name.innerText = name;
-  nameContainer.innerText = "";
-  nameSaved[0] = nameObj;
-  console.log(nameSaved);
-  return h2Name;
+  title.innerHTML = `Hello ${name} &#128516;`;
+  localStorage.setItem("nameInStorage", name);
 };
 
 form.onsubmit = function (event) {
   event.preventDefault();
-  nameContainer.appendChild(createName(nameForm.value));
+  createName(nameForm.value);
   form.reset();
 };
+
+window.addEventListener("DOMContentLoaded", () => {
+  const nameInStorage = localStorage.getItem("nameInStorage");
+
+  if (nameInStorage) {
+    createName(nameInStorage);
+  } else {
+    title.innerHTML = "Write your name &#128516;";
+  }
+});
