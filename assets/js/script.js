@@ -1,7 +1,10 @@
 const form = document.querySelector("form");
 const nameForm = document.getElementById("name");
 const deleteBtn = document.getElementById("deleteBtn");
-const title = document.querySelector("h1");
+const stopwatchContainer = document.getElementById("footerContainer");
+let seconds = 0;
+const secondsOnScreen = document.createElement("h3");
+let title = document.createElement("h1");
 
 const createName = (name) => {
   title.innerHTML = `Hello ${name} &#128516;`;
@@ -23,6 +26,13 @@ const clearStorage = () => {
   title.innerHTML = "Write your name &#128516;";
 };
 
+const stopwatch = () => {
+  secondsOnScreen.innerText = seconds;
+  stopwatchContainer.classList.remove("d-none");
+  stopwatchContainer.appendChild(secondsOnScreen);
+  seconds++;
+};
+
 window.addEventListener("DOMContentLoaded", () => {
   const nameInStorage = localStorage.getItem("nameInStorage");
 
@@ -31,6 +41,9 @@ window.addEventListener("DOMContentLoaded", () => {
   } else {
     title.innerHTML = "Write your name &#128516;";
   }
+  form.prepend(title);
+
+  const myInterval = setInterval(stopwatch, 1000);
 });
 
 deleteBtn.addEventListener("click", clearStorage);
