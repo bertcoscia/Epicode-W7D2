@@ -5,6 +5,7 @@ const stopwatchContainer = document.getElementById("footerContainer");
 let seconds = 0;
 const secondsOnScreen = document.createElement("h3");
 let title = document.createElement("h1");
+title.classList.add("text-center");
 
 const createName = (name) => {
   title.innerHTML = `Hello ${name} &#128516;`;
@@ -48,7 +49,7 @@ window.addEventListener("DOMContentLoaded", () => {
   if (secondsInStorage) {
     seconds = secondsInStorage;
   }
-  const stopwathcInterval = setInterval(stopwatch, 1000);
+  setInterval(stopwatch, 1000);
 });
 
 deleteBtn.addEventListener("click", clearStorage);
