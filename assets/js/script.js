@@ -27,6 +27,7 @@ const clearStorage = () => {
 };
 
 const stopwatch = () => {
+  sessionStorage.setItem("stopwatch", seconds);
   secondsOnScreen.innerText = seconds;
   stopwatchContainer.classList.remove("d-none");
   stopwatchContainer.appendChild(secondsOnScreen);
@@ -35,6 +36,7 @@ const stopwatch = () => {
 
 window.addEventListener("DOMContentLoaded", () => {
   const nameInStorage = localStorage.getItem("nameInStorage");
+  const secondsInStorage = sessionStorage.getItem("stopwatch");
 
   if (nameInStorage) {
     welcomeBack(nameInStorage);
@@ -43,7 +45,10 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   form.prepend(title);
 
-  const myInterval = setInterval(stopwatch, 1000);
+  if (secondsInStorage) {
+    seconds = secondsInStorage;
+  }
+  const stopwathcInterval = setInterval(stopwatch, 1000);
 });
 
 deleteBtn.addEventListener("click", clearStorage);
