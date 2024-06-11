@@ -7,6 +7,8 @@ const secondsOnScreen = document.createElement("h3");
 let title = document.createElement("h1");
 title.classList.add("text-center");
 
+/* FUNCTIONS */
+
 const createName = (name) => {
   title.innerHTML = `Hello ${name} &#128516;`;
   localStorage.setItem("nameInStorage", name);
@@ -16,24 +18,27 @@ const welcomeBack = (name) => {
   title.innerHTML = `Welcome back ${name} &#128516;`;
 };
 
-form.onsubmit = function (event) {
-  event.preventDefault();
-  createName(nameForm.value);
-  form.reset();
-};
-
 const clearStorage = () => {
-  localStorage.clear();
+  localStorage.removeItem("nameInStorage");
   title.innerHTML = "Write your name &#128516;";
 };
 
 const stopwatch = () => {
   sessionStorage.setItem("stopwatch", seconds);
   secondsOnScreen.innerText = seconds;
-  stopwatchContainer.classList.remove("d-none");
   stopwatchContainer.appendChild(secondsOnScreen);
   seconds++;
 };
+
+/* FORM.ONSUBMIT */
+
+form.onsubmit = function (event) {
+  event.preventDefault();
+  createName(nameForm.value);
+  form.reset();
+};
+
+/* EVENTLISTENERS */
 
 window.addEventListener("DOMContentLoaded", () => {
   const nameInStorage = localStorage.getItem("nameInStorage");
@@ -49,6 +54,8 @@ window.addEventListener("DOMContentLoaded", () => {
   if (secondsInStorage) {
     seconds = secondsInStorage;
   }
+
+  stopwatch();
   setInterval(stopwatch, 1000);
 });
 
